@@ -19,7 +19,7 @@ def check_mongo_connection(client_uri: str):
 
    
 client = MongoClient(os.getenv('credentials'))
-db = client.Reddit
+db = client.collection_name
 
 
 
