@@ -6,6 +6,10 @@ from pymongo.errors import ServerSelectionTimeoutError
 load_dotenv()
 
 def check_mongo_connection(client_uri: str):
+    """
+    Check if your connection is valid, if it's return ok
+    if not an error.
+    """
     client = MongoClient(client_uri)
 
     try:
@@ -19,6 +23,7 @@ def check_mongo_connection(client_uri: str):
 
    
 client = MongoClient(os.getenv('credentials'))
+#Put our collection
 db = client.collection_name
 
 
