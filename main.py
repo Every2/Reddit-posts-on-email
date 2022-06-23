@@ -26,7 +26,4 @@ for submission in reddit.subreddit('name of subreddit').new():
         service = gmail_authenticate()
         send_message(service, '', '', '')
         print('Your email was sent!')
-        
-                            
-                                               
-    
+                                        
