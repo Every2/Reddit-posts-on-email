@@ -156,3 +156,38 @@ for subs in sub_names:
 ### Can I use only gmail functions?
 
 Yeah, you can use, just use gmail.py and import functions.
+
+### Can I search for tags with praw?
+
+Yeah, you can use something like that.
+```Python
+import praw
+import os
+from dotenv import load_dotenv
+from gmail import send_message, gmail_authenticate 
+
+load_dotenv()
+
+reddit = praw.Reddit(
+    client_id= os.getenv(''),
+    client_secret= os.getenv(''),
+    user_agent= os.getenv(''),
+)
+
+send_to = os.getenv('')
+formated_string = []
+
+for subs in sub_names:
+    for submission in reddit.subreddit('artcommissions').new():  
+        if 'hiring' in submission.title:
+		email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
+        	formated_string.append(email_body)
+
+        if formated_string == []:
+            print('Nothing to send')
+            pass
+        else:
+            service = gmail_authenticate()
+            send_message(service, send_to, '', '\n'.join(formated_string))
+            print('Your email was sent!')
+```
