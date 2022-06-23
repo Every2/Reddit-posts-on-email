@@ -33,8 +33,11 @@ while True:
                 
                 if not submission.id in last_ids:
                     lower_case_title = str.lower(submission.title) 
-                                                            
-                    if tag in lower_case_title:                            
+                    
+                    if '' in lower_case_title or '' in lower_case:        
+                        pass
+                    
+                    elif tag in lower_case_title:                            
                         if not post:
                             db.posts.insert_many(
                                 [
@@ -57,4 +60,3 @@ while True:
            send_message(service, '', '', '')
            print('Your email was sent!')
            time.sleep(sleep_time)
-      
