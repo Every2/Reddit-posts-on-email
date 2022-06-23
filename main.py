@@ -16,7 +16,6 @@ formated_string = []
 
 for submission in reddit.subreddit('name of subreddit').new():  
     result = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
-    
     formated_string.append(result)
     
     if formated_string == []:
