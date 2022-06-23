@@ -8,33 +8,47 @@ from base64 import urlsafe_b64encode
 from email.mime.text import MIMEText
 from typing import NewType
 
-
+#Call a function as a parameter
 callabe = NewType('callabe', Parameter)
 
-# Request all access (permission to read/send/receive emails, manage the inbox, and more)
+
 SCOPES = ['https://mail.google.com/']
 our_email = os.getenv('mail')
 
-def gmail_authenticate() -> None:
+def gmail_authenticate() -> str:
     creds = None
-    # the file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first time
+    """_summary_
+    When you do login one time token.pickle will store access and refresh tokens
+    to automatically login without request everytime you run your script.
+    Returns:
+        str: Return gmail, v1 and credentials to your token.pickle.
+    """
+    
     if os.path.exists("token.pickle"):
         with open("token.pickle", "rb") as token:
             creds = pickle.load(token)
-    # if there are no (valid) credentials availablle, let the user log in.
+    
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
-        # save the credentials for the next run
         with open("token.pickle", "wb") as token:
             pickle.dump(creds, token)
     return build('gmail', 'v1', credentials=creds)
 
 def build_message(destination: str, obj: str, body: str) -> dict:
+    """_summary_
+    Create content of email
+    Args:
+        destination (str): To who you want send email
+        obj (str): Subject of email
+        body (str): Content of email
+
+    Returns:
+        dict: Use mime to send email and b64 to avoid problems with gmail protocols
+    """
     message = MIMEText(body)
     message['to'] = destination
     message['from'] = our_email
@@ -42,7 +56,18 @@ def build_message(destination: str, obj: str, body: str) -> dict:
     
     return {'raw': urlsafe_b64encode(message.as_bytes()).decode()}
 
-def send_message(service: callabe, destination: str, subject: str, body:str) -> None:
+def send_message(service: callabe, destination: str, subject: str, body:str) -> callabe:
+    """_summary_
+    Send message calling authentification and call gmail_authenticate and build_message to send email via gmail api
+    Args:
+        service (callabe): A parameter that call gmail_authenticate function, you should create a variable that call gmail_authenticate and put here
+        destination (str): To who you want send email
+        subject (str): Subject of email
+        body (str): Content of email
+
+    Returns:
+        callabe: send email with api using build_message function
+    """
     return service.users().messages().send(
       userId="me",
       body=build_message(destination, subject, body)
