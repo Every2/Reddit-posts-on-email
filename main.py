@@ -23,6 +23,6 @@ for submission in reddit.subreddit('name of subreddit').new():
         pass
     else:
         service = gmail_authenticate()
-        send_message(service, '', '', '\n'.join(formated_string))
+        send_message(service, send_to, '', '\n'.join(formated_string))
         print('Your email was sent!')
                                         
