@@ -47,28 +47,28 @@ check_connection = check_mongo_connection(os.getenv(''))
 
 for submission in reddit.subreddit('name of subreddit').new():  
     #Create a variable that check if index already exist inside collection
-		check_if_exist = db.posts.find_one({'id': submission.id})
+	check_if_exist = db.posts.find_one({'id': submission.id})
 		if not check_if_exist:
-				"""
-				Insert id to check if exist in unique inside mongodb and 
-				get date to delete when ttl index expire
-				"""	
-				db.collection.insert_many(
-							[
-								{
-										'id': submission.id,
-										'date': datetime.utcnow()
-								}
-							]	
-				)
+		"""
+		Insert id to check if exist in unique inside mongodb and 
+		get date to delete when ttl index expire
+		"""	
+		db.collection.insert_many(
+			[
+				{
+					'id': submission.id,
+					'date': datetime.utcnow()
+				}
+			]	
+		)
                            
 		email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
-    formated_string.append(email_body)
+    		formated_string.append(email_body)
     
-    if formated_string == []:
+  if formated_string == []:
         print('Nothing to send')
         pass
-    else:
+  else:
         service = gmail_authenticate()
         send_message(service, '', '', '\n'.join(formated_string))
         print('Your email was sent!')
