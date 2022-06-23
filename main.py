@@ -1,5 +1,4 @@
 import praw
-import time
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -14,49 +13,34 @@ reddit = praw.Reddit(
     user_agent= os.getenv(''),
 )
 
-
 send_to = os.getenv('')
-
-sub_name = []
-sub_tags = []
-last_ids = []
-sleep_time = 0
+formated_string = []
 
 verification = check_mongo_connection(os.getenv(''))   
 
-while True:
-    posts = []
-    for subs in sub_name:
-        for tag in sub_tags:
-            for submission in reddit.subreddit(subs).new():  
-                post = db.posts.find_one({'id': submission.id})  
-                
-                if not submission.id in last_ids:
-                    lower_case_title = str.lower(submission.title) 
-                    
-                    if '' in lower_case_title or '' in lower_case:        
-                        pass
-                    
-                    elif tag in lower_case_title:                            
-                        if not post:
-                            db.posts.insert_many(
-                                [
-                                    {
-                                        'id': submission.id,
-                                        'date': datetime.utcnow()
-                                    }
-                                ]
-                            )
-                            result = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
-                            posts.append(result)
-                            last_ids.append(submission.id)
+for submission in reddit.subreddit('name of subreddit').new():  
+    post = db.posts.find_one({'id': submission.id})               
+    if not post:
+        db.posts.insert_many(
+            [
+                {
+                    'id': submission.id,
+                    'date': datetime.utcnow()
+                }
+            ]
+        )
+        result = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
+        formated_string.append(result)
+            
+    
+    if formated_string == []:
+        print('Nothing to send')
+        pass
+    else:
+        service = gmail_authenticate()
+        send_message(service, '', '', '')
+        print('Your email was sent!')
+        
+                            
                                                
-    if sleep_time != 0:
-        if posts == []:
-           print('Nothing to send')
-           pass
-        else:
-           service = gmail_authenticate()
-           send_message(service, '', '', '')
-           print('Your email was sent!')
-           time.sleep(sleep_time)
+    
