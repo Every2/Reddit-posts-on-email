@@ -33,11 +33,8 @@ while True:
                 
                 if not submission.id in last_ids:
                     lower_case_title = str.lower(submission.title) 
-                    
-                    if 'forhire' in lower_case_title or 'for hire' in lower_case:        
-                        pass
-                    
-                    elif tag in lower_case_title:                            
+                                                            
+                    if tag in lower_case_title:                            
                         if not post:
                             db.posts.insert_many(
                                 [
