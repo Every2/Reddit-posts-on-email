@@ -15,7 +15,7 @@ send_to = os.getenv('')
 formated_string = []
 
 for submission in reddit.subreddit('name of subreddit').new():  
-    result = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
+    email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
     formated_string.append(result)
     
     if formated_string == []:
@@ -23,6 +23,6 @@ for submission in reddit.subreddit('name of subreddit').new():
         pass
     else:
         service = gmail_authenticate()
-        send_message(service, '', '', '')
+        send_message(service, '', '', '\n'.join(formated_string))
         print('Your email was sent!')
                                         
