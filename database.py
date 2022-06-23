@@ -24,7 +24,7 @@ def check_mongo_connection(client_uri: str):
 
    
 client = MongoClient(os.getenv(''))
-#Put your collection to do operations with mongodb
+#Change collectionname to name of your collection
 db = client.collectionname
 
 
