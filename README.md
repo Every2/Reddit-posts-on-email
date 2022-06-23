@@ -1,4 +1,4 @@
-# Reddit_extractor_mail_sender
+# Reddit-posts-on-email 
 
 Send the reddit post you want to your email!
 =============================================
