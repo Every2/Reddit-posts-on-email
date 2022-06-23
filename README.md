@@ -9,6 +9,6 @@ If you want add a database I will show examples with mongodb (so install pymongo
 
 You may have trouble installing google requirements and pymongo[srv], if you have trouble try:
 
-`
+```Python
 pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pymongo[srv]
-`
+```
