@@ -12,7 +12,7 @@ You may have trouble installing google requirements and pymongo[srv], if you hav
 ```Python
 pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pymongo[srv]
 ```
-FAQ
+#FAQ
 
 ———
 
@@ -74,3 +74,84 @@ for submission in reddit.subreddit('name of subreddit').new():
         send_message(service, '', '', '\n'.join(formated_string))
         print('Your email was sent!')
 ``` 
+### ### How add sleep time in email function?
+
+It’s simple, just create a condition and put logic inside
+
+```Python
+if sleep_time != 0:
+        if formated_string == []:
+           print('tem nada')
+           pass
+        else:
+           service = gmail_authenticate()
+           send_message(service, send_to, 'Posts reddit', '\n'.join(formated_string))
+           print('Enviou')
+           time.sleep(sleep_time)
+```
+### ### Is it possible have more than 1 sub?
+
+Yes, but it is a bit trick, you have two options.
+
+I recommend this one if you will use 3 or less subs:
+```Python
+import praw
+import os
+from dotenv import load_dotenv
+from gmail import send_message, gmail_authenticate 
+
+load_dotenv()
+
+reddit = praw.Reddit(
+    client_id= os.getenv(''),
+    client_secret= os.getenv(''),
+    user_agent= os.getenv(''),
+)
+
+send_to = os.getenv('')
+formated_string = []
+
+for submission in reddit.subreddit("anime_irl+nier+sports").new():  
+    email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
+    formated_string.append(email_body)
+    
+    if formated_string == []:
+        print('Nothing to send')
+        pass
+    else:
+        service = gmail_authenticate()
+        send_message(service, send_to, '', '\n'.join(formated_string))
+        print('Your email was sent!')
+
+```
+If you will use more than 3 you will need create a list and use a for, Idk why praw method doesn’t work with more than 3 subs.
+```Python
+import praw
+import os
+from dotenv import load_dotenv
+from gmail import send_message, gmail_authenticate 
+
+load_dotenv()
+
+reddit = praw.Reddit(
+    client_id= os.getenv(''),
+    client_secret= os.getenv(''),
+    user_agent= os.getenv(''),
+)
+sub_names = ['anime_irl', 'nier', 'sports', 'NBA2k']
+send_to = os.getenv('')
+formated_string = []
+
+for subs in sub_names:
+    for submission in reddit.subreddit(subs).new():  
+        email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
+        formated_string.append(email_body)
+
+        if formated_string == []:
+            print('Nothing to send')
+            pass
+        else:
+            service = gmail_authenticate()
+            send_message(service, send_to, '', '\n'.join(formated_string))
+            print('Your email was sent!')
+```
