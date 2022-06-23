@@ -153,3 +153,6 @@ for subs in sub_names:
             send_message(service, send_to, '', '\n'.join(formated_string))
             print('Your email was sent!')
 ```
+### Can I use only gmail functions?
+
+Yeah, you can use, just use gmail.py and import functions.
