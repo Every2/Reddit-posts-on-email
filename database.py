@@ -6,15 +6,16 @@ from pymongo.errors import ServerSelectionTimeoutError
 load_dotenv()
 
 def check_mongo_connection(client_uri: str):
-    """
-    Check if your connection is valid, if it's return ok
-    if not an error.
+    """_summary_
+    Check if your connection is working if not send an error
+    Args:
+        client_uri (str): pass your client uri and function will check
     """
     client = MongoClient(client_uri)
 
     try:
         client.list_database_names()
-        print('Ok')
+        print('Connected')
         
 
     except ServerSelectionTimeoutError as err:
@@ -23,8 +24,8 @@ def check_mongo_connection(client_uri: str):
 
    
 client = MongoClient(os.getenv('credentials'))
-#Put our collection
-db = client.collection_name
+#Put your collection to do operations with mongodb
+db = client.collection
 
 
 
