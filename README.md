@@ -14,7 +14,7 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
 ```
 # FAQ
 
-### ### Can I add a database to my project?
+### Can I add a database to my project?
 
 Yes, you can. I use mongodb in this example, but you can use other db. If you will use mongodb too, You should edit  “collectionname” inside [database.py](http://database.py).
 
