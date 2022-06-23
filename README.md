@@ -7,10 +7,10 @@ Send the reddit post you want to your email!
 
 If you want add a database I will show examples with mongodb (so install pymongo, but if you will use a server should install pymongo[srv])
 
-You may have trouble installing google requirements and pymongo[srv], if you have trouble try:
+You may have trouble installing google requirements, if you have trouble try:
 
 ```Python
-pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pymongo[srv]
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 # FAQ
 
