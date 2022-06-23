@@ -179,7 +179,8 @@ formated_string = []
 
 for subs in sub_names:
     for submission in reddit.subreddit('artcommissions').new():  
-        if 'hiring' in submission.title:
+        #Hiring is a tag in artcommissions subreddit
+	if 'hiring' in submission.title:
 		email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
         	formated_string.append(email_body)
 
@@ -191,3 +192,4 @@ for subs in sub_names:
             send_message(service, send_to, '', '\n'.join(formated_string))
             print('Your email was sent!')
 ```
+If you had trouble because sensitive case you can lower submission.title to avoid this issue.
