@@ -16,7 +16,7 @@ formated_string = []
 
 for submission in reddit.subreddit('name of subreddit').new():  
     email_body = f'Sub: {submission.subreddit}\nTitle: {submission.title}\nLink: reddit.com/{submission.permalink}\n'
-    formated_string.append(result)
+    formated_string.append(email_body)
     
     if formated_string == []:
         print('Nothing to send')
