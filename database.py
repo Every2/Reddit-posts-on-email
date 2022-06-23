@@ -23,7 +23,7 @@ def check_mongo_connection(client_uri: str):
         
 
    
-client = MongoClient(os.getenv('credentials'))
+client = MongoClient(os.getenv(''))
 #Put your collection to do operations with mongodb
 db = client.collection
 
