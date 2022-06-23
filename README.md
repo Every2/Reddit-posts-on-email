@@ -72,7 +72,7 @@ for submission in reddit.subreddit('name of subreddit').new():
         send_message(service, '', '', '\n'.join(formated_string))
         print('Your email was sent!')
 ``` 
-### ### How add sleep time in email function?
+### How add sleep time in email function?
 
 It’s simple, just create a condition and put logic inside
 
@@ -87,7 +87,7 @@ if sleep_time != 0:
            print('Enviou')
            time.sleep(sleep_time)
 ```
-### ### Is it possible have more than 1 sub?
+### Is it possible have more than 1 sub?
 
 Yes, but it is a bit trick, you have two options.
 
