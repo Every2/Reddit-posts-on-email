@@ -77,12 +77,12 @@ It’s simple, just create a condition and put logic inside
 ```Python
 if sleep_time != 0:
         if formated_string == []:
-           print('tem nada')
+           print('Nothing to send')
            pass
         else:
            service = gmail_authenticate()
            send_message(service, send_to, 'Posts reddit', '\n'.join(formated_string))
-           print('Enviou')
+           print('Your email was sent!')
            time.sleep(sleep_time)
 ```
 ### Is it possible have more than 1 sub?
