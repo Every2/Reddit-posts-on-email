@@ -5,7 +5,7 @@ from pymongo.errors import ServerSelectionTimeoutError
 
 load_dotenv()
 
-def check_mongo_connection(client_uri: str):
+def check_mongo_connection(client_uri: str) -> None:
     """_summary_
     Check if your connection is working if not send an error
     Args:
